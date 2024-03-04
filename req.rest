@@ -1,0 +1,110 @@
+###
+
+POST http://localhost:5050/api/user/login
+Content-Type: application/json
+
+{
+    "email": "jose.jack@gmail.com",
+    "password": "password"
+}
+
+###
+
+POST http://localhost:5050/api/user/signup
+Content-Type: application/json
+
+{
+    "firstName": "José",
+    "lastName": "Jack",
+    "email": "jose.jack@gmail.com",
+    "password": "password",
+    "status": "demi-pensionnaire",
+    "role": "eleve"
+}
+
+###
+
+GET http://localhost:5050/users
+Content-Type: application/json
+
+###
+
+POST http://localhost:3000/api/reservation/makeReservation
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RuYW1lIjoiSm9zw6kiLCJsYXN0bmFtZSI6IkphY2siLCJlbWFpbCI6Impvc2UuamFja0BnbWFpbC5jb20iLCJzdGF0dXMiOiJkZW1pLXBlbnNpb25uYWlyZSIsInJvbGUiOiJlbGV2ZSIsImFsbGVyZ2llcyI6IiIsImRpZXQiOiIiLCJpYXQiOjE3MDI2MzA3ODV9.vL7XSWvv8w-VZmOHBkEXCyDKIg2iGVrF5idLDKmveqk
+
+{
+    "reservation_date": "2023-12-20",
+    "reservation_schedule": "matin"
+}
+
+###
+
+DELETE http://localhost:3000/api/reservation/deleteReservation
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RuYW1lIjoiSm9zw6kiLCJsYXN0bmFtZSI6IkphY2siLCJlbWFpbCI6Impvc2UuamFja0BnbWFpbC5jb20iLCJzdGF0dXMiOiJkZW1pLXBlbnNpb25uYWlyZSIsInJvbGUiOiJlbGV2ZSIsImFsbGVyZ2llcyI6Im9ldWYiLCJkaWV0IjoiIiwiaWF0IjoxNzAyMzkyOTIzfQ.nOIELn2WcYdR2S6_fpE3_e_5D2Chej-tDHxVW3keNqA
+
+{
+    "reservation_date": "2023-12-20",
+    "reservation_schedule": "soir"
+}
+
+###
+
+GET http://localhost:3000/api/user/profile
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RuYW1lIjoiSm9zZSIsImxhc3RuYW1lIjoiSmFjayIsImVtYWlsIjoiam9zZS5qYWNrQGdtYWlsLmNvbSIsInN0YXR1cyI6InBlbnNpb25uYWlyZSIsInJvbGUiOiJlbGV2ZSIsImFsbGVyZ2llcyI6Im9ldWYiLCJkaWV0IjoiIiwidmFjYXRpb25faWQiOm51bGwsImlhdCI6MTcwMjMwNDY2N30.zgEBiWm5qzpOSrfqUmWsf2borMBE_vt2QyJc__iA5cc
+
+###
+
+# POST http://localhost:3000/api/user/editProfile
+# Content-Type: application/json
+# x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RuYW1lIjoiSm9zZSIsImxhc3RuYW1lIjoiSmFjayIsImVtYWlsIjoiam9zZS5qYWNrQGdtYWlsLmNvbSIsInN0YXR1cyI6InBlbnNpb25uYWlyZSIsInJvbGUiOiJlbGV2ZSIsImFsbGVyZ2llcyI6Im9ldWYiLCJkaWV0IjoiIiwidmFjYXRpb25faWQiOm51bGwsImlhdCI6MTcwMjMwNDY2N30.zgEBiWm5qzpOSrfqUmWsf2borMBE_vt2QyJc__iA5cc
+
+# {
+#     "firstname": "José",
+#     "lastname": "Jack",
+#     "email": "jose.jack@gmail.com",
+#     "status": "demi-pensionnaire",
+#     "role": "eleve",
+#     "allergies": "",
+#     "diet": "vegan"
+# }
+
+###
+
+GET http://localhost:3000/api/reservation/weekReservation/2023-12-11&2023-12-15
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RuYW1lIjoiSm9zw6kiLCJsYXN0bmFtZSI6IkphY2siLCJlbWFpbCI6Impvc2UuamFja0BnbWFpbC5jb20iLCJzdGF0dXMiOiJkZW1pLXBlbnNpb25uYWlyZSIsInJvbGUiOiJlbGV2ZSIsImFsbGVyZ2llcyI6IiIsImRpZXQiOiIiLCJpYXQiOjE3MDI2MzgwNDR9.aMH8KYy1aLeB6WE9XHfF8siJJ-AsxUBxf6dYBx70U-g
+
+###
+
+GET http://localhost:3000/api/reservation/kitchen/2023-12-11&2023-12-15
+Content-Type: application/json
+
+###
+
+PATCH http://localhost:3000/api/user/editEmail
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RuYW1lIjoiSm9zw6kiLCJsYXN0bmFtZSI6IkphY2siLCJlbWFpbCI6Impvc2UuamFja0BnbWFpbC5jb20iLCJzdGF0dXMiOiJwZW5zaW9ubmFpcmUiLCJyb2xlIjoiZWxldmUiLCJhbGxlcmdpZXMiOiIiLCJkaWV0IjoiIiwiaWF0IjoxNzAyMzk1MDI2fQ._Y95W5UJbpFgPXSMyVfjpw07RfLhvmtPBRrbX-JFjR4
+
+{
+    "email": "jose.jack@gmail.com"
+}
+
+###
+
+PATCH http://localhost:3000/api/user/changePassword
+Content-Type: application/json
+
+{
+    "email": "jose.jack@gmail.com",
+    "password": "SaucisseChaussure",
+    "new_password": "password"
+}
+
+###
+
+GET http://localhost:3000/api/reservation/getOneUserReservation
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RuYW1lIjoiSm9zw6kiLCJsYXN0bmFtZSI6IkphY2siLCJlbWFpbCI6Impvc2UuamFja0BnbWFpbC5jb20iLCJzdGF0dXMiOiJkZW1pLXBlbnNpb25uYWlyZSIsInJvbGUiOiJlbGV2ZSIsImFsbGVyZ2llcyI6IiIsImRpZXQiOiIiLCJpYXQiOjE3MDI2MzgwNDR9.aMH8KYy1aLeB6WE9XHfF8siJJ-AsxUBxf6dYBx70U-g
