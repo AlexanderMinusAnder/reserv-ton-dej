@@ -1,0 +1,65 @@
+#reservation{
+    margin-top: 12rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+table {
+    width: 80%;
+    margin: 30px;
+    border-spacing: 0;
+    table-layout: fixed;
+    border: 0.5px solid #5AC4FF;
+    border-radius: 20px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+th, td {
+    border: 0.5px solid #5AC4FF;
+    padding: 20px;
+}
+
+tr:first-child, th:first-child {
+    border-top-left-radius: 19px;
+}
+
+tr:first-child, th:last-child {
+    border-top-right-radius: 19px;
+}
+
+th {
+    background-color: #CCEDFF;
+    text-align: center;
+}
+
+.tdSchedule {
+    background-color: #CCEDFF;
+}
+
+#weekButton {
+    width: 80rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#weekButton button {
+    margin-top: 1.1rem;
+}
+
+.reservationTd {
+    font-weight: bold;
+    text-align: center;
+    background: #F4F4F4;
+}
+
+#weekButton h1 {
+    color: #5AC4FF;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 27px;
+}
+
+#lastTd {
+    border-bottom-left-radius: 19px;
+}

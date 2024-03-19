@@ -3,6 +3,7 @@ import { DataSource } from "typeorm"
 import { Users } from "./entity/Users"
 import { Reservation } from "./entity/Reservation"
 import { Specificity } from "./entity/Specificity"
+import { AuthToken } from "./entity/AuthToken"
 require('dotenv').config()
 
 export const AppDataSource = new DataSource({
@@ -14,7 +15,7 @@ export const AppDataSource = new DataSource({
     database: process.env.PG_DATABASE,
     synchronize: true,
     logging: false,
-    entities: [Users, Reservation, Specificity],
+    entities: [Users, Reservation, Specificity, AuthToken],
     migrations: [],
     subscribers: [],
 })

@@ -1,11 +1,29 @@
 ###
 
-POST http://localhost:5050/api/user/login
+POST http://localhost:5050/api/user/signin
 Content-Type: application/json
 
 {
     "email": "jose.jack@gmail.com",
-    "password": "password"
+    "password": "Password$7"
+}
+
+###
+
+POST http://localhost:5050/api/user/token
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoiSm9zZSIsImxhc3ROYW1lIjoiSmFjayIsImVtYWlsIjoiam9zZS5qYWNrQGdtYWlsLmNvbSIsInN0YXR1cyI6ImludGVybmUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTA4NDE0NjJ9.8L41EJZ5b0m9XFZ3KvbwuRRDrXzBlIRBqBq4PVvBIxA"
+}
+
+###
+
+DELETE http://localhost:5050/api/user/signout
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoiSm9zZSIsImxhc3ROYW1lIjoiSmFjayIsImVtYWlsIjoiam9zZS5qYWNrQGdtYWlsLmNvbSIsInN0YXR1cyI6ImludGVybmUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTA4NDE0NjJ9.8L41EJZ5b0m9XFZ3KvbwuRRDrXzBlIRBqBq4PVvBIxA"
 }
 
 ###
@@ -14,68 +32,52 @@ POST http://localhost:5050/api/user/signup
 Content-Type: application/json
 
 {
-    "firstName": "José",
+    "firstName": "Jose",
     "lastName": "Jack",
     "email": "jose.jack@gmail.com",
-    "password": "password",
-    "status": "demi-pensionnaire",
-    "role": "eleve"
+    "password": "Password$7",
+    "status": "interne",
+    "role": "admin"
 }
 
 ###
 
-GET http://localhost:5050/users
+POST http://localhost:5050/api/reservation/create
 Content-Type: application/json
-
-###
-
-POST http://localhost:3000/api/reservation/makeReservation
-Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RuYW1lIjoiSm9zw6kiLCJsYXN0bmFtZSI6IkphY2siLCJlbWFpbCI6Impvc2UuamFja0BnbWFpbC5jb20iLCJzdGF0dXMiOiJkZW1pLXBlbnNpb25uYWlyZSIsInJvbGUiOiJlbGV2ZSIsImFsbGVyZ2llcyI6IiIsImRpZXQiOiIiLCJpYXQiOjE3MDI2MzA3ODV9.vL7XSWvv8w-VZmOHBkEXCyDKIg2iGVrF5idLDKmveqk
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJKb3NlIiwibGFzdE5hbWUiOiJKYWNrIiwiZW1haWwiOiJqb3NlLmphY2tAZ21haWwuY29tIiwic3RhdHVzIjoiaW50ZXJuZSIsInJvbGUiOiJhZG1pbiIsImlkIjoxLCJpYXQiOjE3MTAzMjYyNDV9.Eq834C-YuN_RM6ffx29cj_LwffBAArazidbie1y8Xzs
 
 {
-    "reservation_date": "2023-12-20",
-    "reservation_schedule": "matin"
+    "reservation_date": "2024-03-19",
+    "reservation_schedule": "midi"
 }
 
 ###
-
-DELETE http://localhost:3000/api/reservation/deleteReservation
+ 
+DELETE http://localhost:5050/api/reservation/cancel
 Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RuYW1lIjoiSm9zw6kiLCJsYXN0bmFtZSI6IkphY2siLCJlbWFpbCI6Impvc2UuamFja0BnbWFpbC5jb20iLCJzdGF0dXMiOiJkZW1pLXBlbnNpb25uYWlyZSIsInJvbGUiOiJlbGV2ZSIsImFsbGVyZ2llcyI6Im9ldWYiLCJkaWV0IjoiIiwiaWF0IjoxNzAyMzkyOTIzfQ.nOIELn2WcYdR2S6_fpE3_e_5D2Chej-tDHxVW3keNqA
+x-auth-token:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoiSm9zw6kiLCJsYXN0TmFtZSI6IkphY2siLCJlbWFpbCI6Impvc2UuamFja0BnbWFpbC5jb20iLCJzdGF0dXMiOiJkZW1pLXBlbnNpb25uYWlyZSIsInJvbGUiOiJlbGV2ZSIsImlhdCI6MTcwOTg5MDMxNn0.DQHRHh3JGHsIeXSItc8Otr84mPxzGM7TrHOm-sNvc_c
 
 {
-    "reservation_date": "2023-12-20",
-    "reservation_schedule": "soir"
+    "reservation_date": "2024-03-08",
+    "reservation_schedule": "midi"
 }
 
 ###
 
-GET http://localhost:3000/api/user/profile
+GET http://localhost:5050/api/user/profile
 Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RuYW1lIjoiSm9zZSIsImxhc3RuYW1lIjoiSmFjayIsImVtYWlsIjoiam9zZS5qYWNrQGdtYWlsLmNvbSIsInN0YXR1cyI6InBlbnNpb25uYWlyZSIsInJvbGUiOiJlbGV2ZSIsImFsbGVyZ2llcyI6Im9ldWYiLCJkaWV0IjoiIiwidmFjYXRpb25faWQiOm51bGwsImlhdCI6MTcwMjMwNDY2N30.zgEBiWm5qzpOSrfqUmWsf2borMBE_vt2QyJc__iA5cc
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoiSm9zZSIsImxhc3ROYW1lIjoiSmFjayIsImVtYWlsIjoiam9zZS5qYWNrQGdtYWlsLmNvbSIsInN0YXR1cyI6ImludGVybmUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTA3Njk5ODcsImV4cCI6MTcxMDc3MDU4N30.7qksCyoDCW0L8j0__S6Q1F5eB9xK7_CxB1pBqdUS5ng
 
 ###
 
-# POST http://localhost:3000/api/user/editProfile
-# Content-Type: application/json
-# x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RuYW1lIjoiSm9zZSIsImxhc3RuYW1lIjoiSmFjayIsImVtYWlsIjoiam9zZS5qYWNrQGdtYWlsLmNvbSIsInN0YXR1cyI6InBlbnNpb25uYWlyZSIsInJvbGUiOiJlbGV2ZSIsImFsbGVyZ2llcyI6Im9ldWYiLCJkaWV0IjoiIiwidmFjYXRpb25faWQiOm51bGwsImlhdCI6MTcwMjMwNDY2N30.zgEBiWm5qzpOSrfqUmWsf2borMBE_vt2QyJc__iA5cc
-
-# {
-#     "firstname": "José",
-#     "lastname": "Jack",
-#     "email": "jose.jack@gmail.com",
-#     "status": "demi-pensionnaire",
-#     "role": "eleve",
-#     "allergies": "",
-#     "diet": "vegan"
-# }
+GET http://localhost:5050/api/user/all
+Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/api/reservation/weekReservation/2023-12-11&2023-12-15
+GET http://localhost:5050/api/reservation/user/2024-03-04&2024-03-09
 Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RuYW1lIjoiSm9zw6kiLCJsYXN0bmFtZSI6IkphY2siLCJlbWFpbCI6Impvc2UuamFja0BnbWFpbC5jb20iLCJzdGF0dXMiOiJkZW1pLXBlbnNpb25uYWlyZSIsInJvbGUiOiJlbGV2ZSIsImFsbGVyZ2llcyI6IiIsImRpZXQiOiIiLCJpYXQiOjE3MDI2MzgwNDR9.aMH8KYy1aLeB6WE9XHfF8siJJ-AsxUBxf6dYBx70U-g
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoiSm9zw6kiLCJsYXN0TmFtZSI6IkphY2siLCJlbWFpbCI6Impvc2UuamFja0BnbWFpbC5jb20iLCJzdGF0dXMiOiJkZW1pLXBlbnNpb25uYWlyZSIsInJvbGUiOiJlbGV2ZSIsImlhdCI6MTcwOTg5MDMxNn0.DQHRHh3JGHsIeXSItc8Otr84mPxzGM7TrHOm-sNvc_c
 
 ###
 

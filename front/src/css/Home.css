@@ -1,0 +1,48 @@
+#welcoming {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10rem;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  line-height: 0.1rem;
+}
+
+#welcoming h2 {
+  color: #5AC4FF
+}
+
+#helping {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  line-height: 1px;
+}
+
+#helping h3 {
+  color: #5AC4FF;
+}
+
+#passwordWarn {
+  color: #F1584E;
+  margin-bottom: 50px;
+}
+
+#managingReservation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+#returnToReservationDivBtn {
+  margin-top: 7.5rem;
+  margin-left: 1.5rem;
+}
