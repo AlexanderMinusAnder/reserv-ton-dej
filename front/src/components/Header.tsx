@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/Header.css'
+import Cookies from 'js-cookie';
 
 const Header = () => {
   const [disableReservation, setDisableReservation] = useState(false)
   const [disableProfile, setDisableProfile] = useState(false)
 
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = Cookies.get('accessToken')
 
   const handleDisconnecting = () => {
     window.location.replace('/')
-    localStorage.removeItem('accessToken')
+    Cookies.remove('accessToken', {path: '/'})
+    Cookies.remove('refreshToken', {path: '/'})
   }
-  
+
   const handlePageNavigation = (page: string) => {
     window.location.href = page
   }

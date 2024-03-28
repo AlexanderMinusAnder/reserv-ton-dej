@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import '../css/Home.css'
 import Login from '../components/Login';
+import Cookies from 'js-cookie';
 
 const Home = () => {
 
     useEffect(() => {
 
-        if(localStorage.getItem('accessToken') && String(window.location.href).substring(21) === "/") {
+        if(Cookies.get('accessToken') && String(window.location.href).substring(21) === "/") {
             window.location.href = "/reservation"
         }
     }, [])

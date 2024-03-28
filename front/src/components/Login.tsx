@@ -1,28 +1,24 @@
 import '../css/Login.css'
 import { useState } from "react";
+import axios from 'axios';
 
 function Login() {
 
   const [form, setForm] = useState({ email: "", password: "" });
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    fetch("http://localhost:5050/api/user/signin", {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form)
-    }).then(
-      async (response) => {
-        const data = await response.json();
-
-        localStorage.setItem("accessToken", data.accessToken);
-        window.location.href = "/reservation"
-      }
-    );
+    await axios.post("http://localhost:5050/api/user/signin", {
+      email: form.email,
+      password: form.password
+    }, {withCredentials: true})
+    .then(() => {
+      window.location.href = "/reservation"
+    })
+    .catch((err: any) => {
+      console.log(err)
+    })
   };
 
   const handleChange = (e: any) => {

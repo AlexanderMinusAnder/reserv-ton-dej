@@ -10,7 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/js-cookie": "^3.0.6",
+    "@types/jwt-decode": "^3.1.0",
     "@types/react-router-dom": "^5.3.3",
+    "axios": "^1.6.8",
+    "dayjs": "^1.11.10",
+    "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3"

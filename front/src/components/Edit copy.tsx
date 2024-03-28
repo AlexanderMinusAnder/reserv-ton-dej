@@ -4,33 +4,39 @@ import { useEffect } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 import timeManagement from '../utils/timeManagement';
 
-const Edit = (props: any) => {
+const Edit = (updateEditing: any) => {
 
-    let monday = timeManagement(new Date(), 1, props.skip);
-    let tuesday = timeManagement(new Date(), 2, props.skip);
-    let wednesday = timeManagement(new Date(), 3, props.skip);
-    let thursday = timeManagement(new Date(), 4, props.skip);
-    let friday = timeManagement(new Date(), 5, props.skip);
+    const [skip, setSkip] = useState(0)
+    const [reservation, setReservation] = useState([])
+
+    let monday = timeManagement(new Date(), 1, skip);
+    let tuesday = timeManagement(new Date(), 2, skip);
+    let wednesday = timeManagement(new Date(), 3, skip);
+    let thursday = timeManagement(new Date(), 4, skip);
+    let friday = timeManagement(new Date(), 5, skip);
 
     // Get reservations for connected user and show them in table
 
     const [addReservation, setAddReservation] = useState<string[]>([])
     const [deleteReservation, setDeleteReservation] = useState<string[]>([])
 
-    const reservationFetch = async () => {
+    const reservationFetch = async (skipParam: any) => {
+        await axiosInstance.get(`/api/reservation/user/${timeManagement(new Date(), 1, skip + skipParam).formatForReservation}&${timeManagement(new Date(), 5, skip + skipParam).formatForReservation}`)
+        .then((response: any) => {
 
-        props.reservation.forEach((info: any) => {
-            console.log(info)
-            const date = new Date(info.reservation_date)
-            const dbDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-            const dbSchedule = info.reservation_schedule
-            const tableBox: any = document.getElementById(dbDate+dbSchedule)
+            setReservation(response.data)
+
+            response.data.forEach((info: any) => {
+                const date = new Date(info.reservation_date)
+                const dbDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+                const dbSchedule = info.reservation_schedule
+                const tableBox: any = document.getElementById(dbDate+dbSchedule)
                 
-            if(tableBox && !deleteReservation.includes(tableBox.id)) {
-                tableBox.parentNode.style.background = "#d5edfa"
-                tableBox.checked = true
-            }
-        })
+                if(tableBox && !deleteReservation.includes(tableBox.id)) {
+                    tableBox.parentNode.style.background = "#d5edfa"
+                    tableBox.checked = true
+                }
+            })
 
             if(addReservation.length > 0) {
                 addReservation.forEach((e: any) => {
@@ -54,24 +60,29 @@ const Edit = (props: any) => {
                 })
             }
 
-            // const checkbox = [...document.getElementsByClassName('reservationBox')]
+            const checkbox = [...document.getElementsByClassName('reservationBox')]
 
-            // checkbox.forEach((e: any) => {
-            //     if(e.id.substring(0, 10) <= new Date().getFullYear() + '-' + ('0' + (new Date().getMonth() + 1)).slice(-2) + '-' + ('0' + new Date().getDate()).slice(-2)) {
-            //         e.hidden = true
-            //     } else {
-            //         e.hidden = false
-            //     }
-            // })
+            checkbox.forEach((e: any) => {
+                if(e.id.substring(0, 10) <= new Date().getFullYear() + '-' + ('0' + (new Date().getMonth() + 1)).slice(-2) + '-' + ('0' + new Date().getDate()).slice(-2)) {
+                    e.hidden = true
+                } else {
+                    e.hidden = false
+                }
+            })
+        })
+        .catch((err: any) => {
+            console.log(err)
+        })
+
     }
 
     // Get reservation on page loading
 
     useEffect(() => {
-        reservationFetch()
+        reservationFetch(0)
         const lastTableBox = document.getElementById('lastbox') as HTMLElement
         lastTableBox.style.borderBottomRightRadius = '19px'
-    }, []) 
+    }, [])
 
     // Get currently checked and unchecked box
 
@@ -80,7 +91,7 @@ const Edit = (props: any) => {
         if(e.target.checked) {
             setAddReservation([...addReservation, e.target.id])
 
-            props.reservation.forEach((info: any) => {
+            reservation.forEach((info: any) => {
                 const date = new Date(info.reservation_date)
                 const dbDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
                 const dbSchedule = info.reservation_schedule
@@ -94,7 +105,7 @@ const Edit = (props: any) => {
 
         } else {
 
-            props.reservation.forEach((info: any) => {
+            reservation.forEach((info: any) => {
                 const date = new Date(info.reservation_date)
                 const dbDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
                 const dbSchedule = info.reservation_schedule
@@ -126,7 +137,31 @@ const Edit = (props: any) => {
         })
 
         alert("Vos modifications ont bien été prises en compte.")
-        props.updateEditing(false)
+        updateEditing.updateEditing(false)
+    }
+
+    // Next week and previous week buttons
+
+    const handleSkip = (skipParam: number) => {
+        setSkip(skip + skipParam)
+        reservation.forEach((info: any) => {
+            const date = new Date(info.reservation_date)
+            const dbDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+            const dbSchedule = info.reservation_schedule
+            const tableBox: any = document.getElementById(dbDate+dbSchedule)
+
+            if(tableBox) {
+                tableBox.checked = ""
+                tableBox.parentNode.style.background = ""
+            }
+        })
+
+        const check = [...document.getElementsByClassName('reservationBox')]
+        check.forEach((e: any) => {
+            e.checked = ""
+        })
+
+        reservationFetch(skipParam)
     }
 
     return (
@@ -134,9 +169,9 @@ const Edit = (props: any) => {
 
         <div id='reservation'>
         <div id='weekButton'>
-            <button onClick={() => { props.handleSkip(-7) }} className='btn'>{'Semaine précédente <<'}</button>
+            <button onClick={() => { handleSkip(-7) }} className='btn'>{'Semaine précédente <<'}</button>
             <h1>Semaine du {monday.dateWithFullMonthName} au {friday.dateWithFullMonthName}</h1>
-            <button onClick={() => { props.handleSkip(7) }} className='btn'>{'>> Semaine suivante'}</button>
+            <button onClick={() => { handleSkip(7) }} className='btn'>{'>> Semaine suivante'}</button>
         </div>
         <table>
             <thead>
@@ -178,7 +213,7 @@ const Edit = (props: any) => {
         </table>
         <div id='managingReservation'>
             <button className='btn' onClick={() => {handleValidate()}}>Valider mes réservations</button>
-            <button className='btn' onClick={() => props.updateEditing(false)}>Quitter sans sauvegarder</button>
+            <button className='btn' onClick={() => updateEditing.updateEditing(false)}>Quitter sans sauvegarder</button>
         </div>
         
         <div>
