@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Table from '../components/Table';
 import Edit from '../components/Edit';
 import axiosInstance from '../utils/axiosInstance';
-import timeManagement from '../utils/timeManagement';
 
 const Reservation = () => {
 
@@ -11,10 +10,12 @@ const Reservation = () => {
     const [reservation, setReservation] = useState([])
     const [skip, setSkip] = useState(0)
 
-    const reservationFetch = async (skipParam: any) => {
-        let response = await axiosInstance.get(`/api/reservation/user/${timeManagement(new Date(), 1, skip + skipParam).formatForReservation}&${timeManagement(new Date(), 5, skip + skipParam).formatForReservation}`)
-
-        setReservation(response.data)
+    const reservationFetch = async () => {
+        await axiosInstance.get('/api/reservation/from-logged-user')
+        .then((response) => {
+            const data: any = response.data
+            setReservation(data)
+        })
     }
 
     const updateEditing = (value: boolean) => {
@@ -22,7 +23,7 @@ const Reservation = () => {
     }
 
     const handleSkip = (skipParam: number) => {
-        setSkip(skip + skipParam)
+        setSkip(prev => prev + skipParam)
         reservation.forEach((info: any) => {
             const date = new Date(info.reservation_date)
             const dbDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
@@ -44,25 +45,28 @@ const Reservation = () => {
             check.forEach((e: any) => {
                 e.checked = ""
             })
-        }
 
-        reservationFetch(skipParam)
+            const scheduleCheck = [...document.getElementsByClassName('checkboxSchedule')]
+            scheduleCheck.forEach((e: any) => {
+                e.checked = ""
+            })
+        }
     }
 
-
     useEffect(() => {
-        reservationFetch(0)
+        reservationFetch()
     }, [])
+    
 
     return (
         <div>
             {!editing ? (
                 <>
-                    <Table updateEditing={updateEditing} reservation={reservation} handleSkip={handleSkip} skip={skip}></Table>
+                    <Table updateEditing={updateEditing} reservation={reservation} handleSkip={handleSkip} skip={skip} editing={editing}></Table>
                 </>
             ) : (
                 <>
-                    <Edit updateEditing={updateEditing} reservation={reservation} handleSkip={handleSkip} skip={skip} reservationFetch={reservationFetch}></Edit>
+                    <Edit updateEditing={updateEditing} reservation={reservation} handleSkip={handleSkip} skip={skip} editing={editing} reservationFetch={reservationFetch}></Edit>
                 </>
                 
             )}

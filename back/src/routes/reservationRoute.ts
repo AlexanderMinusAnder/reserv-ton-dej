@@ -40,13 +40,17 @@ ReservationRouter.post("/create", body('reservation_date').isDate().trim(), body
         return res.status(400).json({error: `Vous avez déjà réservé pour le repas du ${req.body.reservation_schedule} pour la journée du ${new Date(req.body.reservation_date).toLocaleDateString()}.`})
     }
 
-    await AppDataSource.getRepository(Reservation).save({
+    const added = await AppDataSource.getRepository(Reservation).save({
         user: res.locals.payload.id,
         reservation_date: req.body.reservation_date,
         reservation_schedule: req.body.reservation_schedule
     })
 
-    return res.status(201).json({ message: `Votre réservation pour le repas du ${req.body.reservation_schedule} pour la journée du ${new Date(req.body.reservation_date).toLocaleDateString()} a bien été prise.`})
+    return res.status(201).json({
+        user: res.locals.payload.id,
+        reservation_date: new Date(req.body.reservation_date).toISOString(),
+        reservation_schedule: req.body.reservation_schedule
+    })
 })
 
 
@@ -78,28 +82,28 @@ ReservationRouter.delete("/cancel", body('reservation_date').isDate().trim(), bo
             return res.status(400).json({error: `Vous n'avez pas réservé pour le repas du ${req.body.reservation_schedule} pour la journée du ${new Date(req.body.reservation_date).toLocaleDateString()}.`})
         }
     
-        await AppDataSource.getRepository(Reservation).delete({
+        const deleted = await AppDataSource.getRepository(Reservation).delete({
             user: res.locals.payload.id,
             reservation_date: req.body.reservation_date,
             reservation_schedule: req.body.reservation_schedule
         })
     
-        return res.status(201).json({ message: `Votre réservation pour le repas du ${req.body.reservation_schedule} pour la journée du ${new Date(req.body.reservation_date).toLocaleDateString()} a bien été annulée.`})
+        return res.status(201).json({
+            user: res.locals.payload.id,
+            reservation_date: new Date(req.body.reservation_date).toISOString(),
+            reservation_schedule: req.body.reservation_schedule
+        })
 })
 
 // ########################################################################################################
-// Reservation of week for logged user
+// Get reservation of currently logged user
 
-ReservationRouter.get("/user/:begin_date&:end_date", param('begin_date').isDate().trim(), param('end_date').isDate().trim(), verifyToken, async (req, res) => {
+ReservationRouter.get("/from-logged-user", verifyToken, async (req, res) => {
     const reservation = await AppDataSource.getRepository(Reservation).find({
         where: {
             user: {
                 id: res.locals.payload.id
-            },
-            reservation_date: Between(
-                req.params.begin_date,
-                req.params.end_date
-            )
+            }
         }
     })
 

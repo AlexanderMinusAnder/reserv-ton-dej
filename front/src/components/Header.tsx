@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/Header.css'
 import Cookies from 'js-cookie';
+import axiosInstance from '../utils/axiosInstance';
 
 const Header = () => {
   const [disableReservation, setDisableReservation] = useState(false)
@@ -9,7 +10,9 @@ const Header = () => {
 
   const accessToken = Cookies.get('accessToken')
 
-  const handleDisconnecting = () => {
+  const handleDisconnecting = async () => {
+    await axiosInstance.delete("/api/user/signout", {data: { refreshToken: Cookies.get("refreshToken")}})
+    .catch(err => console.log(err.message))
     window.location.replace('/')
     Cookies.remove('accessToken', {path: '/'})
     Cookies.remove('refreshToken', {path: '/'})

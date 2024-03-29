@@ -31,7 +31,7 @@ const Table = (props: any) => {
         displayReservation()
         const lastTableBox = document.getElementById(friday.formatForReservation + 'soir') as HTMLElement
         lastTableBox.style.borderBottomRightRadius = '19px'
-    }, [props.reservation])
+    }, [props.reservation, props.skip])
 
     return (
         <>

@@ -49,7 +49,7 @@ UserRouter.post("/token", async (req, res) => {
 // ########################################################################################################
 // Sign out
 
-UserRouter.delete("/signout", async (req, res) => {
+UserRouter.delete("/signout", verifyToken, async (req, res) => {
     const refreshToken = req.body.refreshToken
     await AppDataSource.getRepository(AuthToken).delete({
         token: refreshToken
@@ -148,6 +148,9 @@ UserRouter.post("/signin", body('email').isEmail().trim(), body('password').isSt
     const refreshToken = jwt.sign(user, process.env.refreshKey)
 
     await AppDataSource.getRepository(AuthToken).save({token: refreshToken})
+
+    res.cookie("refreshToken", refreshToken)
+    res.cookie("accessToken", accessToken)
 
     res.status(200).json({ accessToken: accessToken, refreshToken: refreshToken })
 })

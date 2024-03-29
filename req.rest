@@ -75,9 +75,9 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:5050/api/reservation/user/2024-03-04&2024-03-09
+GET http://localhost:5050/api/reservation/from-logged-user
 Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoiSm9zw6kiLCJsYXN0TmFtZSI6IkphY2siLCJlbWFpbCI6Impvc2UuamFja0BnbWFpbC5jb20iLCJzdGF0dXMiOiJkZW1pLXBlbnNpb25uYWlyZSIsInJvbGUiOiJlbGV2ZSIsImlhdCI6MTcwOTg5MDMxNn0.DQHRHh3JGHsIeXSItc8Otr84mPxzGM7TrHOm-sNvc_c
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoiSm9zZSIsImxhc3ROYW1lIjoiSmFjayIsImVtYWlsIjoiam9zZS5qYWNrQGdtYWlsLmNvbSIsInN0YXR1cyI6ImludGVybmUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTE2MjE5MDEsImV4cCI6MTcxMTYyMjUwMX0.bzp5Tjt9800vosgwP2tn1Ej4x5XEFgyvcbwnclxsc7g
 
 ###
 

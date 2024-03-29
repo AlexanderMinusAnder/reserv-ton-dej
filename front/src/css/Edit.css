@@ -35,6 +35,9 @@ th {
 
 .tdSchedule {
     background-color: #CCEDFF;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 #weekButton {
