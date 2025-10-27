@@ -98,7 +98,7 @@ UserRouter.post("/signup",
 
     delete user.password
 
-    const accessToken = jwt.sign(user, process.env.tokenkey)
+    const accessToken = jwt.sign(user, process.env.tokenKey)
 
     res.status(201).json({ accessToken: accessToken })
 

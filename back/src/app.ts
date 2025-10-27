@@ -1,10 +1,10 @@
-import * as express from "express"
+import express from "express"
 import { AppDataSource } from "./data-source"
 require('dotenv').config()
 const port = process.env.PORT
 import UserRouter from "./routes/userRoute"
 
-import * as cors from "cors"
+import cors from "cors"
 
 import ReservationRouter from "./routes/reservationRoute"
 // establish database connection
